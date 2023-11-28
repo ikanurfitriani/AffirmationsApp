@@ -1,5 +1,7 @@
+// Nama package dari aplikasi yang dibuat
 package com.ikanurfitriani.affirmations
 
+// Import library, kelas atau file yang dibutuhkan
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,13 +32,16 @@ import com.ikanurfitriani.affirmations.ui.theme.AffirmationsTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Blok untuk menentukan tata letak aktivitas tempat fungsi composable
         setContent {
             AffirmationsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
+                    // Untuk mengisi Surface dengan ukuran maksimum yang tersedia dalam konteksnya
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    // Memanggil fungsi utama yaitu AffirmationsApp dari aplikasi
                     AffirmationsApp()
                 }
             }
@@ -44,46 +49,68 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Anotasi composable fungsi AffirmationsApp
 @Composable
+// Untuk menampilkan aplikasi penggunaan afirmasi
 fun AffirmationsApp() {
+    // Untuk menampilkan daftar afirmasi
     AffirmationList(
+        // Untuk mengambil data afirmasi dari Datasource
         affirmationList = Datasource().loadAffirmations(),
     )
 }
 
+// Anotasi composable fungsi AffirmationsList
 @Composable
 fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier) {
+    // Untuk membuat scrollable list
     LazyColumn(modifier = modifier) {
+        // Untuk membuat item-item dalam daftar
         items(affirmationList) { affirmation ->
             AffirmationCard(
+                // Setiap item diwakili oleh objek affirmation
                 affirmation = affirmation,
+                // Untuk memberikan ruang antara kartu-kartu
                 modifier = Modifier.padding(8.dp)
             )
         }
     }
 }
 
+// Anotasi composable fungsi AffirmationsCard
 @Composable
 fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier) {
+    // Untuk membuat kartu visual
     Card(modifier = modifier) {
+        // Untuk menempatkan elemen-elemen secara vertikal
         Column {
+            // Untuk mengatur dan menampilkan gambar/foto
             Image(
+                // Mengambil gambar dari sumber daya
                 painter = painterResource(affirmation.imageResourceId),
                 contentDescription = stringResource(affirmation.stringResourceId),
                 modifier = Modifier
+                    // Untuk mengatur lebar menjadi maksimal
                     .fillMaxWidth()
+                    // Untuk mengatur tinggi menjadi 194dp
                     .height(194.dp),
+                // Untuk menyesuaikan gambar dengan proporsinya
                 contentScale = ContentScale.Crop
             )
+            // Untuk mengatur dan menampilkan text
             Text(
+                // Mengambil text dari sumber daya
                 text = LocalContext.current.getString(affirmation.stringResourceId),
+                // Untuk memberi jarak padding sebesar 16dp
                 modifier = Modifier.padding(16.dp),
+                // Memberikan gaya tipografi headline small pada text
                 style = MaterialTheme.typography.headlineSmall
             )
         }
     }
 }
 
+// Menampilkan pratinjau affirmationcard
 @Preview
 @Composable
 private fun AffirmationCardPreview() {

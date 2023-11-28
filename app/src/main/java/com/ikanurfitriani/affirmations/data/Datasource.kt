@@ -1,10 +1,14 @@
+// Nama package dari data yang dibuat dalam aplikasi
 package com.ikanurfitriani.affirmations.data
 
+// Import library yang akan digunakan
 import com.ikanurfitriani.affirmations.R
 import com.ikanurfitriani.affirmations.model.Affirmation
 
+// Membuat class Datasource
 class Datasource() {
     fun loadAffirmations(): List<Affirmation> {
+        // Menampilkan daftar affirmation dan gambarnya
         return listOf<Affirmation>(
             Affirmation(R.string.affirmation1, R.drawable.image1),
             Affirmation(R.string.affirmation2, R.drawable.image2),
